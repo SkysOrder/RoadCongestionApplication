@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="Script1.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var sttr = "https://api.data.gov.sg/v1/transport/traffic-images?date_time="
+            var d = new Date($.now());
+            var DTMS = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2) + "T" + ("0" + d.getHours()).slice(-2) + "%3A" + ("0" + d.getMinutes()).slice(-2) + "%3A" + ("0" + d.getSeconds()).slice(-2);
+            var apiCl = sttr + DTMS;
+
+            //runDetectPeopleExample();
+            $.getJSON(apiCl, function (data) {                
+                var items = [];
+                $.each(data, function (key, val) {
+                    $.each(val, function (ka, vla) {
+                        $.each(vla, function (ka1, vla1) {
+                            console.log(ka1);
+                            console.log(vla1);
+                            //items.push(vla1);
+                            $.each(val, function (kar1, var1) {
+                                console.log(kar1);
+                                console.log(var1);
+                                $.each(var1, function (ka1, val2) {
+                                    console.log(val2);
+                                    console.log(val2.length);
+                                    var lenva = val2.length;
+                                    if (lenva > 80) {
+                                        if (val2.length == lenva)
+                                            for (i = 0; i < val2.length; i++) {
+                                                var imgsr = "<img src='";
+                                                var imgrnd = "' />";
+                                                var imgSqu = imgsr + val2[i].image + imgrnd;
+                                                var tblRow = "<tr class='row1'>" +
+                                                    "<td>" + val2[i].camera_id + "</td>" +
+                                                    "<td>" + imgSqu + "</td>" +
+                                                    "</tr>"
+                                                $(tblRow).appendTo("#JSTable");
+                                                console.log("Run");
+                                            }
+                                    } else {
+                                        console.log("test");
+                                    }
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Real Time Traffic Congestion App</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="stylesheets/base.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+
+  <body>
+    <section id="intro" class="container">
+      <div class="row" style="padding-top: 8%;">
+ 
+        <div class="col-sm-offset-1 col-sm-7">
+          <h1>Real Time Road Congestion App</h1>
+        </div>
+      </div>
+      <div class="row">
+        <hr class="col-sm-offset-1 col-sm-10 blue"/>
+      </div>
+      <div class="row">
+        <form class="form-horizontal" role="form" id="registration-form">
+            <div class="controls">
+                <p class="col-sm-offset-4 col-sm-8 blue"
+                   style="font-weight: bold; font-size: 115%;">
+                    Click to show congestion level.
+                </p>
+                <div class="row">
+                    <div class="col-sm-7 col-sm-7" onload="drawRow">
+                        <table id="JSTable" border="1">
+                            <tr>
+                                <th>Camera ID</th>
+                                <th>Image</th>
+                                
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm-5 col-sm-5">
+                        <div id="ImgCh">
+                            <img id="CongestImg" alt="Test Image" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="btn btn-lg" id="ckBtn" style="border: none; background-color: #00aed1; font-weight: bold;">
+                                Check
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

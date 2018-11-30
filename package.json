@@ -1,0 +1,17 @@
+{
+  "name": "WebinarRegistration",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cloudant": "^1.10.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "opencv4nodejs": "^4.10.1",
+    "python-shell": "^1.0.6",
+    "request": "^2.88.0"
+  }
+}
